@@ -20,6 +20,7 @@ ARG HIVE_VERSION=3.1.1
 ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
 ENV HIVE_HOME /usr/local/hadoop/apache-hive-$HIVE_VERSION-bin
 ENV PATH="${HIVE_HOME}/bin:${PATH}"
+COPY hive-site.xml $HIVE_HOME/conf/
 # https://stackoverflow.com/a/41789082/358804
 RUN rm $HIVE_HOME/lib/log4j-slf4j-impl-2.10.0.jar
 
