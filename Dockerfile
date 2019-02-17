@@ -1,3 +1,24 @@
+# split downloads so the layers are cached independently, and the .tar.gzs aren't included in the final image (reducing the size)
+# https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae
+
+FROM alpine as hadoop
+
+ARG HADOOP_VERSION=3.2.0
+# RUN wget http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
+# RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
+ADD hadoop-$HADOOP_VERSION.tar.gz .
+RUN mv hadoop-$HADOOP_VERSION hadoop
+
+
+FROM alpine as hive
+
+ARG HIVE_VERSION=3.1.1
+# RUN wget http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
+# RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
+ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
+RUN mv apache-hive-$HIVE_VERSION-bin hive
+
+
 # https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-18-04
 
 FROM ubuntu:bionic
@@ -7,18 +28,12 @@ WORKDIR /usr/local/hadoop
 RUN apt-get update && apt-get install -y openjdk-8-jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
-ARG HADOOP_VERSION=3.2.0
-# COPY http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz .
-# RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
-ADD hadoop-$HADOOP_VERSION.tar.gz .
-ENV HADOOP_HOME /usr/local/hadoop/hadoop-$HADOOP_VERSION
+COPY --from=hadoop /hadoop hadoop
+ENV HADOOP_HOME /usr/local/hadoop/hadoop
 ENV PATH="${HADOOP_HOME}/bin:${PATH}"
 
-ARG HIVE_VERSION=3.1.1
-# COPY http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz .
-# RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
-ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
-ENV HIVE_HOME /usr/local/hadoop/apache-hive-$HIVE_VERSION-bin
+COPY --from=hive /hive hive
+ENV HIVE_HOME /usr/local/hadoop/hive
 ENV PATH="${HIVE_HOME}/bin:${PATH}"
 COPY hive-site.xml $HIVE_HOME/conf/
 # https://stackoverflow.com/a/41789082/358804
