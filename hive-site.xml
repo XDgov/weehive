@@ -7,4 +7,9 @@
     <value>ignored</value>
     <description>Throw exception if metadata tables are incorrect.</description>
   </property>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>local</value>
+    <description>https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-Hive,Map-ReduceandLocal-Mode</description>
+  </property>
 </configuration>
