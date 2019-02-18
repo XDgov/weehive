@@ -4,15 +4,31 @@ A minimal-as-possible Docker container running [Apache Hive](https://hive.apache
 
 ## Usage
 
-```sh
-docker run --rm -it -p 10000:10000 hive-mini hiveserver2
-```
-
-To connect remotely, use the [JDBC URL](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-JDBC) `jdbc:hive2://localhost:10000`. For example:
+To use beeline directly:
 
 ```sh
-beeline -u jdbc:hive2://localhost:10000
+docker run --rm -it \
+  -v weehive_hadoop:/user/hive/warehouse \
+  -v weehive_meta:/usr/local/hadoop/metastore_db \
+  weehive
 ```
+
+To connect remotely:
+
+1. Run the server.
+
+   ```sh
+   docker run --rm -it -p 10000:10000 \
+     -v weehive_hadoop:/user/hive/warehouse \
+     -v weehive_meta:/usr/local/hadoop/metastore_db \
+     weehive hiveserver2
+   ```
+
+1. Connect using the [JDBC URL](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-JDBC) `jdbc:hive2://localhost:10000`. Example from an external `beeline`:
+
+   ```sh
+   beeline -u jdbc:hive2://localhost:10000
+   ```
 
 ## Development
 

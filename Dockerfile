@@ -49,12 +49,17 @@ ENV HIVE_HOME /usr/local/hadoop/hive
 ENV PATH="${HIVE_HOME}/bin:${PATH}"
 COPY hive-site.xml $HIVE_HOME/conf/
 
+ARG HADOOP_STORAGE=/user/hive/warehouse
+# https://stackoverflow.com/a/13651963/358804
+ARG METASTORE_DB=/usr/local/hadoop/metastore_db
+
 # https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-RunningHive
 RUN hadoop fs -mkdir -p /tmp
-RUN hadoop fs -mkdir -p /user/hive/warehouse
+RUN hadoop fs -mkdir -p $HADOOP_STORAGE
 RUN hadoop fs -chmod g+w /tmp
-RUN hadoop fs -chmod g+w /user/hive/warehouse
+RUN hadoop fs -chmod g+w $HADOOP_STORAGE
 
 # https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-RunningHiveServer2andBeeline.1
 RUN schematool -dbType derby -initSchema
+VOLUME [ "${HADOOP_STORAGE}", "${METASTORE_DB}" ]
 CMD beeline -u jdbc:hive2://
