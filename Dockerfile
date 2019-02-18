@@ -4,18 +4,28 @@
 FROM alpine as hadoop
 
 ARG HADOOP_VERSION=3.2.0
-# RUN wget http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
-# RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
-ADD hadoop-$HADOOP_VERSION.tar.gz .
+
+# download remotely
+RUN wget http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
+RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
+
+# copy from local
+# ADD hadoop-$HADOOP_VERSION.tar.gz .
+
 RUN mv hadoop-$HADOOP_VERSION hadoop
 
 
 FROM alpine as hive
 
 ARG HIVE_VERSION=3.1.1
-# RUN wget http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
-# RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
-ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
+
+# download remotely
+RUN wget http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
+RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
+
+# copy from local
+# ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
+
 RUN mv apache-hive-$HIVE_VERSION-bin hive
 # https://stackoverflow.com/a/41789082/358804
 RUN rm hive/lib/log4j-slf4j-impl-2.10.0.jar
