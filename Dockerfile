@@ -17,6 +17,8 @@ ARG HIVE_VERSION=3.1.1
 # RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
 ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
 RUN mv apache-hive-$HIVE_VERSION-bin hive
+# https://stackoverflow.com/a/41789082/358804
+RUN rm hive/lib/log4j-slf4j-impl-2.10.0.jar
 
 
 # https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-18-04
@@ -36,8 +38,6 @@ COPY --from=hive /hive hive
 ENV HIVE_HOME /usr/local/hadoop/hive
 ENV PATH="${HIVE_HOME}/bin:${PATH}"
 COPY hive-site.xml $HIVE_HOME/conf/
-# https://stackoverflow.com/a/41789082/358804
-RUN rm $HIVE_HOME/lib/log4j-slf4j-impl-2.10.0.jar
 
 # https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-RunningHive
 RUN hadoop fs -mkdir -p /tmp
