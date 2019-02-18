@@ -55,6 +55,8 @@ RUN hadoop fs -mkdir -p /user/hive/warehouse
 RUN hadoop fs -chmod g+w /tmp
 RUN hadoop fs -chmod g+w /user/hive/warehouse
 
+COPY test.sh .
+
 # https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-RunningHiveServer2andBeeline.1
 RUN schematool -dbType derby -initSchema
 CMD beeline -u jdbc:hive2://

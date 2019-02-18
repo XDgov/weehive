@@ -1,0 +1,12 @@
+version: "3"
+services:
+  server:
+    build: .
+    command: hiveserver2
+    ports:
+      - "10000:10000"
+  client:
+    build: .
+    command: ./test.sh
+    depends_on:
+      - server
