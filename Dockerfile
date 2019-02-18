@@ -3,10 +3,11 @@
 
 FROM alpine as hadoop
 
+ARG MIRROR=https://apache.osuosl.org
 ARG HADOOP_VERSION=3.2.0
 
 # download remotely
-RUN wget http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
+RUN wget $MIRROR/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
 RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
 
 # copy from local - to use, remove .dockerignore
@@ -17,10 +18,11 @@ RUN mv hadoop-$HADOOP_VERSION hadoop
 
 FROM alpine as hive
 
+ARG MIRROR=https://apache.osuosl.org
 ARG HIVE_VERSION=3.1.1
 
 # download remotely
-RUN wget http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
+RUN wget $MIRROR/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
 RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
 
 # copy from local - to use, remove .dockerignore
