@@ -5,10 +5,8 @@ A minimal-as-possible Docker container running [Apache Hive](https://hive.apache
 ## Setup
 
 1. Make sure that you have at least a few GB of memory allocated to Docker. Instructions:
-
-- [Docker for Mac](https://docs.docker.com/docker-for-mac/#advanced)
-- [Docker for Windows](https://docs.docker.com/docker-for-windows/#advanced)
-
+   - [Docker for Mac](https://docs.docker.com/docker-for-mac/#advanced)
+   - [Docker for Windows](https://docs.docker.com/docker-for-windows/#advanced)
 1. Clone this repository.
 1. From the repository root, build the Docker image.
 
