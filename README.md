@@ -4,6 +4,11 @@ A minimal-as-possible Docker container running [Apache Hive](https://hive.apache
 
 ## Usage
 
+Make sure that you have at least a few GB of memory allocated to Docker. Instructions:
+
+- [Docker for Mac](https://docs.docker.com/docker-for-mac/#advanced)
+- [Docker for Windows](https://docs.docker.com/docker-for-windows/#advanced)
+
 ### Beeline
 
 ```sh
