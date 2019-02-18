@@ -4,7 +4,7 @@ A minimal-as-possible Docker container running [Apache Hive](https://hive.apache
 
 ## Usage
 
-To use beeline directly:
+### Beeline
 
 ```sh
 docker run --rm -it \
@@ -13,7 +13,9 @@ docker run --rm -it \
   weehive
 ```
 
-To connect remotely:
+You will be shown the [Beeline](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93CommandLineShell) shell.
+
+### Remote connection
 
 1. Run the server.
 
@@ -24,6 +26,7 @@ To connect remotely:
      weehive hiveserver2
    ```
 
+1. Wait ~90 seconds for Hive to fully start.
 1. Connect using the [JDBC URL](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-JDBC) `jdbc:hive2://localhost:10000`. Example from an external `beeline`:
 
    ```sh
@@ -34,7 +37,5 @@ To connect remotely:
 
 ```sh
 docker build -t weehive:local .
-
-docker run --rm -it -p 10000:10000 weehive:local \
-  beeline -u jdbc:hive2:// -e 'show tables;'
+docker run --rm -it weehive:local
 ```
