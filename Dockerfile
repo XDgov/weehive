@@ -49,7 +49,7 @@ ENV HIVE_HOME /usr/local/hadoop/hive
 ENV PATH="${HIVE_HOME}/bin:${PATH}"
 COPY hive-site.xml $HIVE_HOME/conf/
 
-ARG HADOOP_STORAGE=/user/hive/warehouse
+ARG HADOOP_STORAGE=/usr/local/hadoop/warehouse
 # https://stackoverflow.com/a/13651963/358804
 ARG METASTORE_DB=/usr/local/hadoop/metastore_db
 
