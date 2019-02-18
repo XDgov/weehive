@@ -9,7 +9,7 @@ ARG HADOOP_VERSION=3.2.0
 RUN wget http://apache.osuosl.org/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
 RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
 
-# copy from local
+# copy from local - to use, remove .dockerignore
 # ADD hadoop-$HADOOP_VERSION.tar.gz .
 
 RUN mv hadoop-$HADOOP_VERSION hadoop
@@ -23,7 +23,7 @@ ARG HIVE_VERSION=3.1.1
 RUN wget http://mirrors.advancedhosters.com/apache/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
 RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
 
-# copy from local
+# copy from local - to use, remove .dockerignore
 # ADD apache-hive-$HIVE_VERSION-bin.tar.gz .
 
 RUN mv apache-hive-$HIVE_VERSION-bin hive
