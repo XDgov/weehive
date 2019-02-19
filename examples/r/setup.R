@@ -4,9 +4,6 @@ if (!require(RJDBC)) {
   require(RJDBC)
 }
 
-library(rJava)
-
-
 getHiveConn <- function() {
   # https://mapr.com/support/s/article/How-to-connect-R-to-Hiveserver2-using-hive-jdbc?language=en_US
 
