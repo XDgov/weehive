@@ -26,7 +26,7 @@ docker run --rm -it \
   weehive
 ```
 
-You will be shown the [Beeline](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93CommandLineShell) shell.
+You will be shown the [Beeline](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline%E2%80%93CommandLineShell) shell. The `weehive_hadoop` and `weehive_meta` [volume names](https://docs.docker.com/storage/volumes/#choose-the--v-or---mount-flag) can be changed to be project-specific names if you want.
 
 ### Remote connection
 
@@ -45,6 +45,11 @@ You will be shown the [Beeline](https://cwiki.apache.org/confluence/display/Hive
    ```sh
    beeline -u jdbc:hive2://localhost:10000
    ```
+
+## Loading data from file
+
+1. [Mount the data as a volume](https://docs.docker.com/storage/volumes/#start-a-container-with-a-volume) by adding a `-v <sourcedir>:/usr/local/hadoop/data` to one of the `docker run` commands above.
+1. Follow [instructions to load data](https://cwiki.apache.org/confluence/display/Hive/Tutorial#Tutorial-LoadingData)
 
 ## Development
 
