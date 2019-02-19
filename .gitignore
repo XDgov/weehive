@@ -1,1 +1,3 @@
 *.tar.gz
+apache-hive-*/
+hadoop-*/
