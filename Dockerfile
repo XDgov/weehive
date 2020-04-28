@@ -4,7 +4,7 @@
 FROM alpine as hadoop
 
 ARG MIRROR=https://apache.osuosl.org
-ARG HADOOP_VERSION=3.2.0
+ARG HADOOP_VERSION=3.2.1
 
 # download remotely
 RUN wget $MIRROR/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
@@ -19,7 +19,7 @@ RUN mv hadoop-$HADOOP_VERSION hadoop
 FROM alpine as hive
 
 ARG MIRROR=https://apache.osuosl.org
-ARG HIVE_VERSION=3.1.1
+ARG HIVE_VERSION=3.1.2
 
 # download remotely
 RUN wget $MIRROR/hive/hive-$HIVE_VERSION/apache-hive-$HIVE_VERSION-bin.tar.gz
@@ -31,6 +31,11 @@ RUN tar -xzf apache-hive-$HIVE_VERSION-bin.tar.gz
 RUN mv apache-hive-$HIVE_VERSION-bin hive
 # https://stackoverflow.com/a/41789082/358804
 RUN rm hive/lib/log4j-slf4j-impl-2.10.0.jar
+
+# replace guava versions - issue: https://issues.apache.org/jira/browse/HIVE-22915
+RUN rm hive/lib/guava-19.0.jar
+RUN wget https://repo1.maven.org/maven2/com/google/guava/guava/29.0-jre/guava-29.0-jre.jar
+RUN mv guava-29.0-jre.jar hive/lib/
 
 
 # https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-in-stand-alone-mode-on-ubuntu-18-04
