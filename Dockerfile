@@ -7,7 +7,7 @@ ARG MIRROR=https://apache.osuosl.org
 ARG HADOOP_VERSION=3.2.1
 
 # download remotely
-RUN wget $MIRROR/hadoop/common/stable/hadoop-$HADOOP_VERSION.tar.gz
+RUN wget $MIRROR/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 RUN tar -xzf hadoop-$HADOOP_VERSION.tar.gz
 
 # copy from local - to use, remove .dockerignore
